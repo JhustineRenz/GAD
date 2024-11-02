@@ -1,0 +1,150 @@
+/* manage_program.css */
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+    margin: 0;
+}
+
+/* Manage Programs Container */
+.manage-program-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Programs Section */
+.programs-section h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.program-list {
+    margin-top: 20px;
+}
+
+.program-card {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.program-card h3 {
+    color: #333;
+    margin: 0;
+}
+
+.program-card p {
+    color: #666;
+    margin: 10px 0;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.actions a {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.actions a.edit {
+    background-color: #f39c12;
+}
+
+.actions a.delete {
+    background-color: #e74c3c;
+}
+
+.actions a:hover {
+    opacity: 0.9;
+}
+
+/* Courses List */
+.courses {
+    margin-top: 20px;
+}
+
+.courses h4 {
+    color: #666;
+    margin: 10px 0;
+}
+
+.courses ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.courses ul li {
+    margin: 5px 0;
+    color: #333;
+}
+
+.courses ul li span {
+    font-size: 12px;
+    color: #888;
+    margin-left: 10px;
+}
+
+.courses ul li .course-actions {
+    margin-top: 5px;
+}
+
+.courses ul li .course-actions a {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.courses ul li .course-actions a.edit {
+    background-color: #f39c12;
+}
+
+.courses ul li .course-actions a.delete {
+    background-color: #e74c3c;
+}
+
+.courses ul li .course-actions a:hover {
+    opacity: 0.9;
+}
