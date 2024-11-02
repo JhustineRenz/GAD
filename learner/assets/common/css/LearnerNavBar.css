@@ -138,6 +138,25 @@
     background-color: #a18acb;
 }
 
+/* Additional styling for the logout button */
+.popup-btn.logout-btn {
+    background-color: #FF5733; /* Example color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.popup-btn.logout-btn:hover {
+    background-color: #C44532; /* Darker shade for hover effect */
+}
+
+
 /* Separator (OR line) */
 .separator {
     display: flex;

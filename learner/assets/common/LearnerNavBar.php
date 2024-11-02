@@ -1,3 +1,10 @@
+<?php
+// Start the session if it's not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!-- Navigation Bar -->
 <nav class="user-navigation-bar">
     <!-- Logo Section -->
@@ -29,36 +36,41 @@
     <!-- Profile Popup -->
     <div id="profile-popup" class="profile-popup" style="display: none;">
         <div class="popup-content">
-            <h2 class="popup-title">WELCOME!</h2>
-            <p class="popup-text">Sign in to your account now.</p>
-            <button class="popup-btn signin-btn">SIGN IN</button>
-            <div class="separator">
-                <span>OR</span>
-            </div>
-            <button class="popup-btn signup-btn">SIGN UP</button>
+            <?php if (isset($_SESSION['learner_id'])): ?>
+                <!-- If the learner is logged in, show the Logout button -->
+                <h2 class="popup-title">WELCOME BACK!</h2>
+                <button onclick="logout()" class="popup-btn logout-btn">LOGOUT</button>
+            <?php else: ?>
+                <!-- If the learner is not logged in, show the Sign In and Sign Up options -->
+                <h2 class="popup-title">WELCOME!</h2>
+                <p class="popup-text">Sign in to your account now.</p>
+                <button class="popup-btn signin-btn">SIGN IN</button>
+                <div class="separator"><span>OR</span></div>
+                <button class="popup-btn signup-btn">SIGN UP</button>
+            <?php endif; ?>
         </div>
     </div>
-        
-    <script>
 
-        // Profile Popup Toggle
+    <script>
+        // Toggle the visibility of the profile popup
         function togglePopup() {
             const popup = document.getElementById('profile-popup');
             popup.style.display = (popup.style.display === "none" || popup.style.display === "") ? "block" : "none";
         }
 
-        // Close Popup
-        function closePopup() {
-            document.getElementById('profile-popup').style.display = "none";
+        // Event listeners to redirect to login and sign-up pages if not logged in
+        document.querySelector('.signin-btn').addEventListener('click', function () {
+            window.location.href = 'login.php';
+        });
+
+        document.querySelector('.signup-btn').addEventListener('click', function () {
+            window.location.href = 'sign-up.php';
+        });
+
+        // Logout function to destroy session and redirect to login page
+        function logout() {
+            // Send a request to logout.php to handle session destruction
+            window.location.href = 'logout.php';
         }
-
-        // Redirect to the login page on Sign In button click
-        document.querySelector('.signin-btn').addEventListener('click', function() {
-            window.location.href = 'login.php';  // Redirect to the login page
-        });
-
-        document.querySelector('.signup-btn').addEventListener('click', function() {
-            window.location.href = 'sign-up.php';  // Redirect to the login page
-        });
     </script>
 </nav>
