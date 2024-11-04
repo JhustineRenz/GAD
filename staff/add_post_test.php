@@ -8,17 +8,20 @@ if (!isset($_SESSION['staff_logged_in'])) {
 }
 
 $course_id = $_GET['course_id'] ?? null;
+$success_message = '';
+$error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $question_text = $_POST['question_text'];
     $option_a = $_POST['option_a'];
     $option_b = $_POST['option_b'];
     $option_c = $_POST['option_c'];
+    $option_d = $_POST['option_d']; // New Option D input
     $correct_option = $_POST['correct_option'];
 
-    $query = "INSERT INTO post_test_questions (course_id, question_text, option_a, option_b, option_c, correct_option) VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO post_test_questions (course_id, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("isssss", $course_id, $question_text, $option_a, $option_b, $option_c, $correct_option);
+    $stmt->bind_param("issssss", $course_id, $question_text, $option_a, $option_b, $option_c, $option_d, $correct_option);
 
     if ($stmt->execute()) {
         $success_message = "Post-Test question added successfully!";
@@ -41,48 +44,71 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Post-Test Questions</title>
-    <link rel="stylesheet" href="../staff/assets/css/add_course_section.css">
+    <title>Post-Test Questions</title>
+    <link rel="stylesheet" href="../staff/assets/css/add_post_test.css">
+    <script>
+        // JavaScript to hide the success message after 3 seconds
+        document.addEventListener("DOMContentLoaded", function() {
+            const successMessage = document.querySelector(".post-test-message.success");
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
 </head>
 
 <body>
     <?php include '../staff/assets/common/StaffNavBar.php'; ?>
 
-    <h1>Add Post-Test Questions</h1>
+    <h1 class="post-test-page-title">POST-TEST QUESTIONS</h1>
 
-    <?php if (isset($success_message)): ?>
-        <p class="success-message"><?php echo $success_message; ?></p>
+    <?php if ($success_message): ?>
+        <p class="post-test-message success"><?php echo $success_message; ?></p>
     <?php endif; ?>
-    <?php if (isset($error_message)): ?>
-        <p class="error-message"><?php echo $error_message; ?></p>
+    <?php if ($error_message): ?>
+        <p class="post-test-message error"><?php echo $error_message; ?></p>
     <?php endif; ?>
 
-    <form method="POST">
-        <label for="question_text">Question:</label>
-        <input type="text" name="question_text" required><br>
+    <div class="post-test-question-container">
+        <div class="post-test-question-form">
+            <h2 class="post-test-section-title">ADD POST-TEST QUESTION</h2>
+            <form method="POST">
+                <label for="question_text">Question:</label>
+                <input type="text" name="question_text" class="post-test-question-text-field" required>
 
-        <label for="option_a">Option A:</label>
-        <input type="text" name="option_a" required><br>
+                <label for="option_a">Option A:</label>
+                <input type="text" name="option_a" class="post-test-input-field" required>
 
-        <label for="option_b">Option B:</label>
-        <input type="text" name="option_b" required><br>
+                <label for="option_b">Option B:</label>
+                <input type="text" name="option_b" class="post-test-input-field" required>
 
-        <label for="option_c">Option C:</label>
-        <input type="text" name="option_c" required><br>
+                <label for="option_c">Option C:</label>
+                <input type="text" name="option_c" class="post-test-input-field" required>
 
-        <label for="correct_option">Correct Option (a/b/c):</label>
-        <input type="text" name="correct_option" maxlength="1" required><br>
+                <label for="option_d">Option D:</label>
+                <input type="text" name="option_d" class="post-test-input-field" required>
 
-        <button type="submit">Add Question</button>
-    </form>
+                <label for="correct_option">Correct Option (a/b/c/d):</label>
+                <input type="text" name="correct_option" class="post-test-input-field" maxlength="1" required>
 
-    <h2>Existing Post-Test Questions:</h2>
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li><?php echo $row['question_text']; ?> (Correct Answer: <?php echo strtoupper($row['correct_option']); ?>)
-            </li>
-        <?php endwhile; ?>
-    </ul>
+                <button type="submit" class="post-test-submit-button">Add Question</button>
+            </form>
+        </div>
+
+        <div class="post-test-existing-questions">
+            <h2 class="post-test-section-title">EXISTING POST-TEST QUESTIONS</h2>
+            <ul class="post-test-question-list">
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <li class="post-test-question-item">
+                        <span class="post-test-question-text"><?php echo htmlspecialchars($row['question_text']); ?></span>
+                        <span class="post-test-correct-answer">Correct Answer: <?php echo strtoupper(htmlspecialchars($row['correct_option'])); ?></span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>

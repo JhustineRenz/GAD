@@ -1,6 +1,6 @@
 /* Navigation bar container */
 .navbar {
-    background-color: #333;
+    background-color: #4CAF50; /* Change color to a lighter green */
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -15,6 +15,7 @@
     font-weight: bold;
     color: white;
     text-decoration: none;
+    margin-right: auto; /* Pushes other items to the right */
 }
 
 .navbar .logo:hover {
@@ -24,7 +25,8 @@
 /* Navigation links */
 .navbar .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px; /* Reduce the gap to bring links closer */
+    margin-right: 10px; /* Slightly closer to the logout button */
 }
 
 .navbar .nav-links a {
@@ -39,14 +41,15 @@
 
 /* Logout button styling */
 .navbar .logout {
-    background-color: #dc3545;
+    background-color: #f44336; /* Slightly lighter red */
     padding: 8px 15px;
     border-radius: 5px;
     text-decoration: none;
     color: white;
     font-size: 14px;
+    margin-left: 5px;
 }
 
 .navbar .logout:hover {
-    background-color: #c82333;
+    background-color: #d32f2f;
 }

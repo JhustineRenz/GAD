@@ -8,6 +8,8 @@ if (!isset($_SESSION['staff_logged_in'])) {
 }
 
 $course_id = $_GET['course_id'] ?? null;
+$success_message = '';
+$error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $question_text = $_POST['question_text'];
@@ -41,48 +43,71 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Pre-Test Questions</title>
-    <link rel="stylesheet" href="../staff/assets/css/add_course_section.css">
+    <title>Pre-Test Questions</title>
+    <link rel="stylesheet" href="../staff/assets/css/add_pre_test.css">
+    <script>
+        // JavaScript to hide the success message after 3 seconds
+        document.addEventListener("DOMContentLoaded", function() {
+            const successMessage = document.querySelector(".message.success");
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
 </head>
 
 <body>
     <?php include '../staff/assets/common/StaffNavBar.php'; ?>
 
-    <h1>Add Pre-Test Questions</h1>
+    <h1 class="page-title">PRE-TEST QUESTIONS</h1>
 
-    <?php if (isset($success_message)): ?>
-        <p class="success-message"><?php echo $success_message; ?></p>
+    <?php if ($success_message): ?>
+        <p class="message success"><?php echo $success_message; ?></p>
     <?php endif; ?>
-    <?php if (isset($error_message)): ?>
-        <p class="error-message"><?php echo $error_message; ?></p>
+    <?php if ($error_message): ?>
+        <p class="message error"><?php echo $error_message; ?></p>
     <?php endif; ?>
 
-    <form method="POST">
-        <label for="question_text">Question:</label>
-        <input type="text" name="question_text" required><br>
+    <div class="question-container">
+        <div class="question-form">
+            <h2 class="section-title">ADD PRE-TEST QUESTION</h2>
+            <form method="POST">
+                <label for="question_text">Question:</label>
+                <input type="text" name="question_text" class="input-field" required>
 
-        <label for="option_a">Option A:</label>
-        <input type="text" name="option_a" required><br>
+                <label for="option_a">Option A:</label>
+                <input type="text" name="option_a" class="input-field" required>
 
-        <label for="option_b">Option B:</label>
-        <input type="text" name="option_b" required><br>
+                <label for="option_b">Option B:</label>
+                <input type="text" name="option_b" class="input-field" required>
 
-        <label for="option_c">Option C:</label>
-        <input type="text" name="option_c" required><br>
+                <label for="option_c">Option C:</label>
+                <input type="text" name="option_c" class="input-field" required>
 
-        <label for="correct_option">Correct Option (a/b/c):</label>
-        <input type="text" name="correct_option" maxlength="1" required><br>
+                <label for="correct_option">Correct Option (a/b/c):</label>
+                <input type="text" name="correct_option" class="input-field" maxlength="1" required>
 
-        <button type="submit">Add Question</button>
-    </form>
+                <!-- Align button to the right with green color -->
+                <div class="button-container">
+                    <button type="submit" class="submit-button">Add Question</button>
+                </div>
+            </form>
+        </div>
 
-    <h2>Existing Pre-Test Questions:</h2>
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li><?php echo $row['question_text']; ?> (Correct Answer: <?php echo strtoupper($row['correct_option']); ?>)
-            </li>
-        <?php endwhile; ?>
-    </ul>
+        <div class="existing-questions">
+            <h2 class="section-title">EXISTING PRE-TEST QUESTIONS</h2>
+            <ul class="question-list">
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <li class="question-item">
+                        <span class="question-text"><?php echo htmlspecialchars($row['question_text']); ?></span>
+                        <span class="correct-answer">Correct Answer: <?php echo strtoupper(htmlspecialchars($row['correct_option'])); ?></span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>

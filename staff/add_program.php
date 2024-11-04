@@ -2,7 +2,6 @@
 session_start();
 require_once '../config.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $program_name = $_POST['program_name'];
     $program_desc = $_POST['program_desc'];
@@ -24,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 
     header('Location: staff_dashboard.php');  // Redirect to the staff dashboard after adding a program
+    exit;
 }
 ?>
 
-<!-- HTML Form for Adding Program -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,18 +36,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../staff/assets/css/add_program.css"> 
 </head>
 <body>
-    <h2>Add Program</h2>
     <form action="add_program.php" method="POST" enctype="multipart/form-data">
+        <h2>ADD PROGRAM</h2>
+
         <label for="program_name">Program Name:</label>
-        <input type="text" id="program_name" name="program_name" required><br>
-        
+        <input type="text" id="program_name" name="program_name" required>
+
         <label for="program_desc">Program Description:</label>
-        <textarea id="program_desc" name="program_desc" required></textarea><br>
+        <textarea id="program_desc" name="program_desc" required></textarea>
 
         <label for="program_img">Program Image:</label>
-        <input type="file" id="program_img" name="program_img"><br>
+        <input type="file" id="program_img" name="program_img">
 
-        <input type="submit" value="Add Program">
+        <div class="button-container">
+            <input type="submit" value="Add Program">
+            <a href="staff_dashboard.php" class="back-button">Back</a>
+        </div>
     </form>
 </body>
 </html>
