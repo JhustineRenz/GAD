@@ -1,0 +1,270 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Full-width navigation bar */
+.navbar {
+    width: 100vw;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: none;
+}
+
+/* Logo and Name on the left */
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar .logo:hover {
+    color: #ddd;
+}
+
+/* Navigation links */
+.navbar .nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar .nav-links a:hover {
+    color: #ddd;
+}
+
+/* Logout button styling */
+.navbar .logout {
+    background-color: #f44336;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.navbar .logout:hover {
+    background-color: #d32f2f;
+}
+
+/* Header title */
+.header-title {
+    color: #4CAF50;
+    margin-top: 10px;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+/* Notification container with absolute positioning */
+.notification-container {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Success and error messages */
+.success-message, .error-message {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    pointer-events: auto;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.error-message {
+    background-color: #fdecea;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+/* Container for the form */
+.form-container {
+    max-width: 1000px;
+    width: 90%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Aligning "Seminar Title" and "Description" labels to the left */
+.form-container label[for="seminar_title"],
+.form-container label[for="description"] {
+    align-self: flex-start;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* "Seminar Title" input field styling */
+.form-container input[name="seminar_title"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Textarea styling for description */
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+}
+
+/* Button styling */
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #2e7d32;
+    transform: scale(1.05);
+}
+
+.submit-button:active {
+    transform: scale(0.95);
+}
+
+/* Flexbox layout for form row */
+.form-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.form-row div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 22%;
+    margin-bottom: 5px;
+}
+
+.form-row label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* Existing Seminar Details Section */
+.existing-title {
+    color: #4CAF50;
+    font-size: 1.8rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.details-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.details-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.poster-image {
+    margin-top: 10px;
+    width: 200px;
+    height: auto;
+}
+
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+    .form-container, .navbar {
+        width: 100%;
+    }
+
+    .header-title {
+        font-size: 1.8rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-row div {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1.5rem;
+    }
+
+    .submit-button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
