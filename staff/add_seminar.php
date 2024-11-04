@@ -8,6 +8,8 @@ if (!isset($_SESSION['staff_logged_in'])) {
 }
 
 $course_id = $_GET['course_id'] ?? null;
+$success_message = '';
+$error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['seminar_poster'])) {
     $seminar_title = $_POST['seminar_title'];
@@ -18,6 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['seminar_poster'])) {
 
     $file = $_FILES['seminar_poster'];
     $target_dir = "../staff/upload/seminars/";
+
+    // Check if the directory exists; if not, create it
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
     $target_file = $target_dir . basename($file["name"]);
 
     if (move_uploaded_file($file["tmp_name"], $target_file)) {
@@ -35,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['seminar_poster'])) {
     }
 }
 
-// Fetch existing seminar details
 $query = "SELECT * FROM seminars WHERE course_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $course_id);
@@ -45,59 +52,85 @@ $result = $stmt->get_result();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Seminar Details</title>
-    <link rel="stylesheet" href="../staff/assets/css/add_course_section.css">
+    <link rel="stylesheet" href="../staff/assets/css/add_seminar.css">
 </head>
-
 <body>
+    <!-- Include the navigation bar -->
     <?php include '../staff/assets/common/StaffNavBar.php'; ?>
 
-    <h1>Add Seminar Details</h1>
+    <h1 class="header-title">SEMINAR DETAILS</h1>
 
-    <?php if (isset($success_message)): ?>
-        <p class="success-message"><?php echo $success_message; ?></p>
-    <?php endif; ?>
-    <?php if (isset($error_message)): ?>
-        <p class="error-message"><?php echo $error_message; ?></p>
-    <?php endif; ?>
+    <div class="notification-container">
+        <?php if ($success_message): ?>
+            <p class="success-message"><?php echo $success_message; ?></p>
+        <?php endif; ?>
+        <?php if ($error_message): ?>
+            <p class="error-message"><?php echo $error_message; ?></p>
+        <?php endif; ?>
+    </div>
 
-    <form method="POST" enctype="multipart/form-data">
-        <label for="seminar_title">Seminar Title:</label>
-        <input type="text" name="seminar_title" required><br>
+    <div class="wrapper-container">
+        <!-- Form Container -->
+        <form method="POST" enctype="multipart/form-data" class="form-container">
+            <h2 class="form-title">ADD SEMINAR DETAILS</h2>
+            <label for="seminar_title">Seminar Title:</label>
+            <input type="text" name="seminar_title" required>
 
-        <label for="description">Description:</label>
-        <textarea name="description" required></textarea><br>
+            <label for="description">Description:</label>
+            <textarea name="description" required></textarea>
 
-        <label for="date">Date:</label>
-        <input type="date" name="date" required><br>
+            <div class="form-row">
+                <div>
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" required>
+                </div>
 
-        <label for="time">Time:</label>
-        <input type="time" name="time" required><br>
+                <div>
+                    <label for="time">Time:</label>
+                    <input type="time" name="time" required>
+                </div>
 
-        <label for="venue">Venue:</label>
-        <input type="text" name="venue" required><br>
+                <div>
+                    <label for="venue">Venue:</label>
+                    <input type="text" name="venue" required>
+                </div>
 
-        <label for="seminar_poster">Seminar Poster:</label>
-        <input type="file" name="seminar_poster" required><br>
+                <div>
+                    <label for="seminar_poster">Poster:</label>
+                    <input type="file" name="seminar_poster" required>
+                </div>
+            </div>
 
-        <button type="submit">Add Seminar</button>
-    </form>
+            <button type="submit" class="submit-button">Add Seminar</button>
+        </form>
 
-    <h2>Existing Seminar Details:</h2>
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li>
-                <strong><?php echo $row['seminar_title']; ?></strong><br>
-                <?php echo $row['description']; ?><br>
-                <em><?php echo $row['date']; ?>, <?php echo $row['time']; ?></em> at <?php echo $row['venue']; ?><br>
-                <img src="<?php echo $row['poster_path']; ?>" width="200px">
-            </li>
-        <?php endwhile; ?>
-    </ul>
+        <!-- Existing Seminar Container -->
+        <div class="existing-seminar-container">
+            <h2 class="existing-title">EXISTING SEMINAR DETAILS</h2>
+            <ul class="details-list">
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <li class="details-item">
+                        <strong><?php echo $row['seminar_title']; ?></strong><br>
+                        <?php echo $row['description']; ?><br>
+                        <em><?php echo $row['date']; ?>, <?php echo $row['time']; ?></em> at <?php echo $row['venue']; ?><br>
+                        <img src="<?php echo $row['poster_path']; ?>" class="poster-image">
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Automatically hide the message after 3 seconds
+        setTimeout(function() {
+            const successMessage = document.querySelector('.success-message');
+            const errorMessage = document.querySelector('.error-message');
+            if (successMessage) successMessage.style.display = 'none';
+            if (errorMessage) errorMessage.style.display = 'none';
+        }, 3000);
+    </script>
 </body>
-
 </html>

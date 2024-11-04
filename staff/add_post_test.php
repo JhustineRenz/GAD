@@ -16,12 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $option_a = $_POST['option_a'];
     $option_b = $_POST['option_b'];
     $option_c = $_POST['option_c'];
-    $option_d = $_POST['option_d']; // New Option D input
     $correct_option = $_POST['correct_option'];
 
-    $query = "INSERT INTO post_test_questions (course_id, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO post_test_questions (course_id, question_text, option_a, option_b, option_c, correct_option) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("issssss", $course_id, $question_text, $option_a, $option_b, $option_c, $option_d, $correct_option);
+    $stmt->bind_param("isssss", $course_id, $question_text, $option_a, $option_b, $option_c, $correct_option);
 
     if ($stmt->execute()) {
         $success_message = "Post-Test question added successfully!";
@@ -47,12 +46,18 @@ $result = $stmt->get_result();
     <title>Post-Test Questions</title>
     <link rel="stylesheet" href="../staff/assets/css/add_post_test.css">
     <script>
-        // JavaScript to hide the success message after 3 seconds
+        // JavaScript to hide the notification after 3 seconds
         document.addEventListener("DOMContentLoaded", function() {
             const successMessage = document.querySelector(".post-test-message.success");
+            const errorMessage = document.querySelector(".post-test-message.error");
             if (successMessage) {
                 setTimeout(() => {
                     successMessage.style.display = "none";
+                }, 3000);
+            }
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
                 }, 3000);
             }
         });
@@ -76,7 +81,7 @@ $result = $stmt->get_result();
             <h2 class="post-test-section-title">ADD POST-TEST QUESTION</h2>
             <form method="POST">
                 <label for="question_text">Question:</label>
-                <input type="text" name="question_text" class="post-test-question-text-field" required>
+                <input type="text" name="question_text" class="post-test-input-field" required>
 
                 <label for="option_a">Option A:</label>
                 <input type="text" name="option_a" class="post-test-input-field" required>
@@ -87,13 +92,13 @@ $result = $stmt->get_result();
                 <label for="option_c">Option C:</label>
                 <input type="text" name="option_c" class="post-test-input-field" required>
 
-                <label for="option_d">Option D:</label>
-                <input type="text" name="option_d" class="post-test-input-field" required>
-
-                <label for="correct_option">Correct Option (a/b/c/d):</label>
+                <label for="correct_option">Correct Option (a/b/c):</label>
                 <input type="text" name="correct_option" class="post-test-input-field" maxlength="1" required>
 
-                <button type="submit" class="post-test-submit-button">Add Question</button>
+                <!-- Align button to the right with green color -->
+                <div class="post-test-button-container">
+                    <button type="submit" class="post-test-submit-button">Add Question</button>
+                </div>
             </form>
         </div>
 
