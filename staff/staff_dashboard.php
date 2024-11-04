@@ -27,7 +27,7 @@ $programs_query = $conn->query("SELECT * FROM programs");
     <?php include '../staff/assets/common/StaffNavBar.php'; ?>
 
     <div class="dashboard-container">
-        <h1>Staff Dashboard - Summary View</h1>
+        <h1>STAFF DASHBOARD - SUMMARY VIEW</h1>
 
         <!-- Programs Summary Section -->
         <div class="programs-summary">
@@ -36,8 +36,13 @@ $programs_query = $conn->query("SELECT * FROM programs");
             <!-- Display existing programs and their courses -->
             <div class="program-summary-list">
                 <?php while ($program = $programs_query->fetch_array()) { ?>
-                    <div class="program-summary-card">
-                        <h3><?php echo $program['program_name']; ?></h3>
+                    <div class="program-summary-card" id="program-<?php echo $program['program_id']; ?>">
+                        <h3>
+                            <!-- Add query parameter to the link -->
+                            <a href="manage_programs.php?from_dashboard=true#program-<?php echo $program['program_id']; ?>">
+                                <?php echo $program['program_name']; ?>
+                            </a>
+                        </h3>
                         <!-- Courses under each program -->
                         <div class="courses-summary">
                             <h4>Courses:</h4>
@@ -61,6 +66,27 @@ $programs_query = $conn->query("SELECT * FROM programs");
             </div>
         </div>
     </div>
+
+    <script>
+        // Save the current scroll position to sessionStorage when a program link is clicked
+        document.querySelectorAll('.program-summary-card h3 a').forEach(link => {
+            link.addEventListener('click', () => {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        // Scroll to the saved position on page load if it exists
+        window.addEventListener('load', () => {
+            const scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                window.scrollTo({
+                    top: parseInt(scrollPosition, 10),
+                    behavior: 'smooth'
+                });
+                sessionStorage.removeItem('scrollPosition'); // Clear the saved position
+            }
+        });
+    </script>
 
 </body>
 
