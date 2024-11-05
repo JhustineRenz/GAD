@@ -1,5 +1,4 @@
 <?php
-
 // Check if a session is not already started
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -12,29 +11,20 @@ if (!isset($_SESSION['staff_logged_in'])) {
 }
 ?>
 
-<html lang="en">
+<div class="sidebar" id="sidebar">
+    <!-- Logo / Name of the System -->
+    <a href="staff_dashboard.php" class="logo">Staff Dashboard</a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../staff/assets/common/css/StaffNavBar.css">
-</head>
+    <!-- Navigation Links -->
+    <ul class="menu">
+        <li><a href="staff_dashboard.php" class="menu-item">Home</a></li>
+        <li><a href="manage_programs.php" class="menu-item">Manage Programs</a></li>
+        <li><a href="manage_advocacy_campaign.php" class="menu-item">Manage Advocacy Campaigns</a></li>
+    </ul>
 
-<body>
-    <div class="navbar">
-        <!-- Logo / Name of the System -->
-        <a href="staff_dashboard.php" class="logo">Staff Dashboard</a>
+    <!-- Logout Button -->
+    <a href="staff_logout.php" class="logout">Logout</a>
+</div>
 
-        <!-- Navigation Links -->
-        <div class="nav-links">
-            <a href="staff_dashboard.php">Home</a>
-            <a href="manage_programs.php">Manage Programs</a>
-            <a href="manage_courses.php">Manage Advocacy Campaigns</a>
-        </div>
-
-        <!-- Logout Button -->
-        <a href="staff_logout.php" class="logout">Logout</a>
-    </div>
-</body>
-
-</html>
+<!-- Sidebar Toggle Button -->
+<div class="sidebar-toggle" id="sidebar-toggle"></div>

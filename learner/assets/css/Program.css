@@ -38,7 +38,7 @@ h1 {
 
 .search-container {
     display: flex;
-    align-items: center;
+    align-items: right;
     margin-left: 1000px;
     
 }

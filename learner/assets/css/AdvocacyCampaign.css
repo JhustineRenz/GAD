@@ -14,7 +14,6 @@ html, body {
     box-sizing: inherit;
 }
 
-
 /* Advocacy Campaign Section */
 .advocacy-campaign-container {
     margin: 0 auto;
@@ -39,7 +38,7 @@ h1 {
 /* Search Bar */
 .search-bar {
     display: flex;
-    align-items: center;
+    align-items: right;
     margin-left: 1000px;
 }
 
@@ -81,6 +80,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-width: 450;
 }
 
 .image-card img {
@@ -101,6 +101,10 @@ h1 {
     font-size: 15px;
     color: #3182ce;
     text-decoration: none;
+    max-width: 100%; /* Ensure title doesn't exceed card width */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide the overflowed text */
+    text-overflow: ellipsis;
 }
 
 .image-title:hover {

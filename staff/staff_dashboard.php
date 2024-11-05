@@ -19,7 +19,9 @@ $programs_query = $conn->query("SELECT * FROM programs");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="../staff/assets/common/css/StaffNavBar.css">
     <link rel="stylesheet" href="../staff/assets/css/staff_dashboard.css">
+    <script src="../staff/assets/common/js/sidebarToggle.js" defer></script>
 </head>
 
 <body>

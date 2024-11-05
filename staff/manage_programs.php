@@ -24,6 +24,7 @@ $show_back_button = isset($_GET['from_dashboard']);
     <title>Manage Programs and Courses</title>
     <link rel="stylesheet" href="../staff/assets/common/css/StaffNavBar.css"> <!-- StaffNavBar styles -->
     <link rel="stylesheet" href="../staff/assets/css/manage_programs.css"> <!-- manage_programs specific styles -->
+    <script src="../staff/assets/common/js/sidebarToggle.js" defer></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@ $show_back_button = isset($_GET['from_dashboard']);
         <h1>MANAGE PROGRAMS AND COURSES</h1>
 
         <!-- Conditionally display the Back Button -->
-        <?php if ($show_back_button) : ?>
+        <?php if ($show_back_button): ?>
             <a href="staff_dashboard.php" class="button back-button">Back</a>
         <?php endif; ?>
 
@@ -58,9 +59,9 @@ $show_back_button = isset($_GET['from_dashboard']);
                         <!-- Program Management Actions -->
                         <div class="actions">
                             <a href="edit_program.php?program_id=<?php echo $program['program_id']; ?>"
-                               class="button edit">Edit</a>
+                                class="button edit">Edit</a>
                             <a href="delete_program.php?program_id=<?php echo $program['program_id']; ?>"
-                               class="button delete">Delete</a>
+                                class="button delete">Delete</a>
                         </div>
 
                         <!-- Courses within each program -->
@@ -78,18 +79,22 @@ $show_back_button = isset($_GET['from_dashboard']);
                                             <span>(<?php echo $course['course_date']; ?>)</span>
                                             <div class="course-actions">
                                                 <a href="edit_course.php?course_id=<?php echo $course['course_id']; ?>"
-                                                   class="button edit">Edit</a>
+                                                    class="button edit">Edit</a>
                                                 <a href="delete_course.php?course_id=<?php echo $course['course_id']; ?>"
-                                                   class="button delete">Delete</a>
+                                                    class="button delete">Delete</a>
                                             </div>
 
                                             <!-- Manage Course Sections -->
                                             <div class="section-links">
-                                                <a href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>">Introduction</a>
-                                                <a href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>">Pre-Test</a>
-                                                <a href="add_learning_materials.php?course_id=<?php echo $course['course_id']; ?>">Learning Materials</a>
+                                                <a
+                                                    href="add_introduction.php?course_id=<?php echo $course['course_id']; ?>">Introduction</a>
+                                                <a
+                                                    href="add_pre_test.php?course_id=<?php echo $course['course_id']; ?>">Pre-Test</a>
+                                                <a href="add_learning_materials.php?course_id=<?php echo $course['course_id']; ?>">Learning
+                                                    Materials</a>
                                                 <a href="add_videos.php?course_id=<?php echo $course['course_id']; ?>">Videos</a>
-                                                <a href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>">Post-Test</a>
+                                                <a
+                                                    href="add_post_test.php?course_id=<?php echo $course['course_id']; ?>">Post-Test</a>
                                                 <a href="add_seminar.php?course_id=<?php echo $course['course_id']; ?>">Seminar</a>
                                             </div>
                                         </li>
@@ -99,7 +104,7 @@ $show_back_button = isset($_GET['from_dashboard']);
                                 <?php } ?>
                             </ul>
                             <a href="add_course.php?program_id=<?php echo $program['program_id']; ?>"
-                               class="button add-course">Add New Course</a>
+                                class="button add-course">Add New Course</a>
                         </div>
                     </div>
                 <?php } ?>

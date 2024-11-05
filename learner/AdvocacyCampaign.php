@@ -1,3 +1,10 @@
+<?php
+require_once '../config.php';
+
+// Fetch all campaigns
+$campaigns = $conn->query("SELECT * FROM advocacy_campaigns");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,36 +32,18 @@
 
             <!-- Image Gallery Section -->
             <div class="image-gallery">
-
-                <!-- Advocacy 1-->
-                <div class="image-card">
-                    <a href="AdvocacyCampaignRedirection.php">
-                        <img src="./assets/images/20.png" alt="Webinar on Laws on Gender-Based Violence"></a>
-                    <a class="image-title">Webinar on Laws on Gender-Based Violence</a>
-                </div>
-                
-                <!-- Advocacy 2-->
-                <div class="image-card">
-                    <a href="AdvocacyCampaignRedirection.php">
-                        <img src="./assets/images/21.png" alt="Pride Month 2022"></a>
-                    <a class="image-title">PRIDE: A Celebration of Self</a>
-                </div>
-                
-                <!-- Advocacy 3-->
-                <div class="image-card">
-                    <a href="AdvocacyCampaignRedirection.php">
-                        <img src="./assets/images/22.png" alt="Filipina Lakas"></a>
-                    <a class="image-title">Filipina Lakas: Zero Tolerance on Violence Against Women</a>
-                </div>
-                
-                <!-- Advocacy 4-->
-                <div class="image-card">
-                    <a href="AdvocacyCampaignRedirection.php">
-                        <img src="./assets/images/23.png" alt="National Disaster Resilience Month 2022"></a>
-                    <a class="image-title">National Disaster Resilience Month 2022</a>
-                </div>
+                <?php while ($campaign = $campaigns->fetch_assoc()) { ?>
+                    <div class="image-card">
+                        <a href="AdvocacyCampaignRedirection.php?id=<?php echo $campaign['campaign_id']; ?>">
+                            <img src="<?php echo htmlspecialchars($campaign['campaign_img']); ?>"
+                                alt="<?php echo htmlspecialchars($campaign['campaign_name']); ?>">
+                        </a>
+                        <a class="image-title"><?php echo htmlspecialchars($campaign['campaign_name']); ?></a>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
 </body>
+
 </html>

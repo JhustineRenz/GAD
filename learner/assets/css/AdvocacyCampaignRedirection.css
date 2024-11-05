@@ -12,7 +12,9 @@ html, body {
 *, *::before, *::after {
     box-sizing: inherit;
 }
-
+.nav-spacing {
+    height: 77px;
+}
 
 /* Banner Section */
 .banner {
@@ -45,7 +47,7 @@ html, body {
 
 .activities {
     text-align: left;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .activities h2 {
@@ -63,10 +65,11 @@ html, body {
 
 /* Button Grid */
 .button-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .button {
@@ -74,28 +77,57 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 20px; /* Adjusted padding */
     background-color: #B19CD9;
-    color: white;
+    color: #5a2c88;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    width: 250px; /* Adjusted width */
+    height: 100px; /* Adjusted height */
+    text-align: center;
 }
 
 .button:hover {
     transform: scale(1.05);
 }
 
+/* Button Image Styling with Color Overlay Effect */
 .button img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    filter: grayscale(180%) brightness(3) sepia(2) hue-rotate(-40deg) saturate(5); /* Initial filter for color tint */
+    opacity: 0.8; /* Slightly transparent to blend with button */
+    transition: filter 0.3s ease, opacity 0.3s ease; /* Smooth transition on hover */
 }
+
+.button:hover img {
+    filter: grayscale(0%) brightness(1.3) sepia(1) hue-rotate(0deg) saturate(1); /* Hover effect to enhance color */
+    opacity: 1; /* Restore full opacity on hover */
+}
+
+/* Enhanced Text Styling for Button */
+.button span {
+    font-size: 14px; /* Increased font size */
+    font-weight: bold;
+    color: #ffffff; /* White color for contrast */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow to enhance readability */
+    letter-spacing: 0.5px; /* Slightly increased letter spacing for readability */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Button Text Hover Effect */
+.button:hover span {
+    color: #5a2c88; /* Yellow color on hover for emphasis */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow on hover */
+}
+
 
 /* Content Description */
 .content-description {
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: left;
     line-height: 1.6;
 }
